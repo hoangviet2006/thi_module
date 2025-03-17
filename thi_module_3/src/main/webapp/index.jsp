@@ -6,6 +6,6 @@
     <title></title>
 </head>
 <body>
-<c:redirect url="view/create.jsp"></c:redirect>
+<c:redirect url="/admin"></c:redirect>
 </body>
 </html>

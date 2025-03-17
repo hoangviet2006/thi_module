@@ -9,36 +9,37 @@
 <body>
 <c:import url="../navbar.jsp"></c:import>
 <div class="d-flex justify-content-between my-3 px-5">
-    <a class="btn btn-success btn-sm" href="/phone?action=create">Thêm Mới</a>
-    <form action="/phone?action=search" method="post" class="d-flex">
-        <input class="form-control form-control-sm w-75" name="id" placeholder="input name phone" value="${param.id}">
+    <a class="btn btn-success btn-sm" href="/admin?action=create">Thêm Mới</a>
+    <form action="/admin?action=search" method="post" class="d-flex">
+        <input class="form-control form-control-sm w-75" name="code" placeholder="Nhập mã phòng trọ cần tìm" value="${param.code}">
         <button class="btn btn-primary btn-sm mx-3">Tìm Kiếm</button>
     </form>
 </div>
 <table id="tableProduct" class="table table-striped table-hover table-bordered">
     <thead class="table-primary">
     <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th>STT</th>
+        <th>Mã phòng trọ</th>
+        <th>Tên người thuê phòng</th>
+        <th>Số điện thoại</th>
+        <th>Ngaỳ bắt đầu thue</th>
+        <th>Hình thức thanh toán</th>
+        <th>Ghi chú</th>
+        <th>Xóa</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${}" var="product">
+    <c:forEach items="${list}" var="motelRoom">
         <tr>
-            <td>${}</td>
-            <td><fmt:formatNumber value="${getPrice()}" pattern="#,###VND"/></td>
+            <td>${motelRoom.stt}</td>
+            <td>${motelRoom.code}</td>
+            <td>${motelRoom.tenantName}</td>
+            <td>${motelRoom.phoneNumber}</td>
+            <td>${motelRoom.rentalDate}</td>
+            <td>${motelRoom.formOfPayment}</td>
+            <td>${motelRoom.note}</td>
             <td>
-                <a href="/admin?action=update&id=${product.getId()}" class="btn btn-primary btn-sm">
-                    Cập Nhật</a>
-            </td>
-            <td>
-                <button type="button" class="btn btn-primary btn-sm" onclick="deleteId('${product.getId()}')" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                <button type="button" class="btn btn-primary btn-sm" onclick="deleteId('${motelRoom.stt}')" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
                     Xóa</button>
             </td>
         </tr>
@@ -50,13 +51,13 @@
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="............." method="get">
+            <form action="/admin" method="get">
                 <div class="modal-header bg-danger text-white">
                     <h5 class="modal-title" id="confirmDeleteLabel">Xác Nhận Xóa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="id" id="deleteId">
+                    <input type="hidden" name="stt" id="deleteId">
                     <input type="hidden" name="action" value="delete">
                     <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
                 </div>
